@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Typewriter } from "react-simple-typewriter";
 
 const Navbar = () => {
   const navLinks = (
@@ -41,7 +42,7 @@ const Navbar = () => {
             </ul>
           </div>
           <Link to="/" className="btn btn-ghost text-4xl">
-            Insight Hub
+            <Typewriter loop={2} cursorColor words={["Insight Hub"]} />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
