@@ -1,15 +1,36 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
 
 const Navbar = () => {
   const navLinks = (
     <>
       <li>
-        <a>Item 1</a>
+        <NavLink to="/">Home</NavLink>
       </li>
-      <li></li>
       <li>
-        <a>Item 3</a>
+        {" "}
+        <Link>Add Article</Link>
+      </li>
+      <li>
+        <Link>All Articles</Link>
+      </li>
+      <li>
+        <Link>Subscription</Link>
+      </li>
+      {/* TODO:condition:if the user is admin */}
+      <li>
+        <Link>Dashboard</Link>
+      </li>
+      <li>
+        <Link>My Articles</Link>
+      </li>
+      {/*TODO: condition :Will shown if the user only take premium subs*/}
+      <li>
+        <Link>Premium Articles</Link>
+      </li>
+      {/* TODO: USER photo will be shown.it will take to profile  */}
+      <li>
+        <Link>My Profile</Link>
       </li>
     </>
   );
@@ -49,7 +70,8 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{navLinks}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          {/* TODO:condition:if logged in show profile img and logout,else show login */}
+          <button className="btn btn-primary">Login</button>
         </div>
       </div>
     </div>
