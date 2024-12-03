@@ -1,7 +1,5 @@
-import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
-import { authContext } from "../../../providers/AuthProviders";
 
 const Navbar = () => {
   const navLinks = (
