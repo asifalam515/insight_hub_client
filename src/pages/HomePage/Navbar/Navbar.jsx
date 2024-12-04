@@ -1,7 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
+import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
+  const { user, loading } = useAuth();
+
   const navLinks = (
     <>
       <li>
