@@ -1,12 +1,48 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
+import { getAuth, updateProfile } from "firebase/auth";
+import app from "../../firebase/firebase.config";
 const Register = () => {
+  const { createUser } = useAuth();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    // getting all the form data here inside data
+    const name = data.name;
+    const photo = data.photo;
+    const email = data.email;
+    const password = data.password;
+
+    // DONE:create account
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        updateProfile(result.user, {
+          displayName: name,
+          photoURL: photo,
+        });
+        console.log(user);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Account Created",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+
+    // TODO: send it to database
+    // console.log(data);
+  };
   return (
     <div>
       <div className="hero bg-base-200 min-h-screen">
@@ -91,7 +127,7 @@ const Register = () => {
                 <input
                   className="btn btn-primary"
                   type="submit"
-                  value="Value"
+                  value="Register"
                 />
               </div>
             </form>
