@@ -1,9 +1,21 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, Links, NavLink } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
 import useAuth from "../../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
-  const { user, loading } = useAuth();
+  const { user, loading, logOutUser } = useAuth();
+  const handleLogOut = () => {
+    logOutUser().then(() => {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Logged Out",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    });
+  };
 
   const navLinks = (
     <>
@@ -70,7 +82,7 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{navLinks}</ul>
         </div>
         <div className="navbar-end">
-          {/* TODO:condition:if logged in show profile img and logout,else show login */}
+          {/* DOne:condition:if logged in show profile img and logout,else show login */}
           {user ? (
             <>
               <Link to="/profile">
@@ -81,10 +93,14 @@ const Navbar = () => {
                 />
               </Link>
 
-              <button className="btn  btn-warning ">Logout</button>
+              <button onClick={handleLogOut} className="btn  btn-warning ">
+                Logout
+              </button>
             </>
           ) : (
-            <button className="btn btn-primary">Login</button>
+            <Link to="/login" className="btn btn-primary">
+              Login
+            </Link>
           )}
         </div>
       </div>

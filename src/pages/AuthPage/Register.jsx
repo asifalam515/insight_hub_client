@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import axios from "axios";
 import { getAuth, updateProfile } from "firebase/auth";
 import app from "../../firebase/firebase.config";
 const Register = () => {
@@ -27,6 +28,11 @@ const Register = () => {
           photoURL: photo,
         });
         console.log(user);
+        // send it to DB
+        axios.post("http://localhost:5000/users", user).then((res) => {
+          console.log(res.data);
+        });
+
         Swal.fire({
           position: "top-end",
           icon: "success",
