@@ -32,9 +32,6 @@ const Navbar = () => {
         <Link>Premium Articles</Link>
       </li>
       {/* TODO: USER photo will be shown.it will take to profile  */}
-      <li>
-        <Link>My Profile</Link>
-      </li>
     </>
   );
   return (
@@ -74,7 +71,21 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           {/* TODO:condition:if logged in show profile img and logout,else show login */}
-          <button className="btn btn-primary">Login</button>
+          {user ? (
+            <>
+              <Link to="/profile">
+                <img
+                  className="btn btn-xl rounded-2xl p-0 m-0"
+                  src={user.photoURL}
+                  alt=""
+                />
+              </Link>
+
+              <button className="btn  btn-warning ">Logout</button>
+            </>
+          ) : (
+            <button className="btn btn-primary">Login</button>
+          )}
         </div>
       </div>
     </div>

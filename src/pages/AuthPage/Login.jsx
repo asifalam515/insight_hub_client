@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Login = () => {
-  const { createUser } = useAuth();
+  const { loggedInUser } = useAuth();
   const {
     register,
     formState: { errors },
@@ -10,15 +12,27 @@ const Login = () => {
   } = useForm();
   const onSubmit = (data) => {
     // getting all the form data here inside data
-    const name = data.name;
-    const photo = data.photo;
     const email = data.email;
     const password = data.password;
 
     // DONE:login user
+    loggedInUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        Swal.fire("Logged In");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        Swal.fire({
+          title: "The Internet?",
+          text: `${errorMessage}`,
+          icon: "question",
+        });
+      });
 
     // TODO: send it to database
-    // console.log(data);
+    console.log(data);
   };
   return (
     <div>
@@ -46,6 +60,7 @@ const Login = () => {
                   <span className="label-text">Password</span>
                 </label>
                 <input
+                  {...register("password")}
                   type="password"
                   placeholder="password"
                   className="input input-bordered"
